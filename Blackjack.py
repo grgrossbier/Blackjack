@@ -355,7 +355,7 @@ class Game:
 			if player.computer_player:
 				response = player.decide_insurance()
 			while response not in ["yes", "no"]:
-				response = input(f"{player.name}, would you like to buy insurance? [Yes or No] ---  ")
+				response = input(f"{player.name}, would you like to buy insurance? [Yes or No]  --  ")
 				response = response.lower()
 			if response == "yes":
 				player_index = self.players.index(player)
@@ -414,7 +414,7 @@ class Game:
 			if player.computer_player:
 				response = player.decide_bet()
 			while not response.isdigit():
-				response = input(f"{player.name}, what would you like to bet? [Positive integer only]")
+				response = input(f"{player.name}, what would you like to bet? [Positive integer only] --  ")
 			bet = int(response)
 			player.bet(bet,0)
 			print(f"{player.name} bets {bet} bottlecaps")
@@ -463,7 +463,7 @@ class Game:
 		if player.computer_player:
 			response = player.decide_hit_or_stay(hand_num, self.dealer.up_card.value)
 		while response not in ["hit", "stay"]:
-			response = input(f"{player.name}, you currently have {'a Soft' if player.hands[hand_num].soft > 0 else ''} {player.hands[hand_num].count}. Would you like to 'hit' or 'stay'? ---  ")
+			response = input(f"{player.name}, you currently have {'a Soft' if player.hands[hand_num].soft > 0 else ''} {player.hands[hand_num].count}. Would you like to 'hit' or 'stay'?  --  ")
 			response = response.lower()
 		if response == "hit":
 			player.hands[hand_num].actions['hit_counts'].append(player.hands[hand_num].count_code())

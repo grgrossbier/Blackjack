@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import pickle
+from time import sleep
 
 
 class PlayerLogin():
@@ -10,7 +11,7 @@ class PlayerLogin():
             try:
                 self.load()
             except FileNotFoundError:
-                print(f"'{self.name}_loginsave.pickle' not found. FileNotFoundError.")
+                print(f"'{self.name}_loginsave.pickle' not found. FileNotFoundError.\nCreating new profile.")
                 new = True
             else:
                 self.load()
@@ -25,21 +26,22 @@ class PlayerLogin():
 
     def new_player(self,ans = "no"):
         if ans != "yes":
-            ans = input("\nAre you sure you want to reset this player's profile?   ")
+            ans = input("\nAre you sure you want to reset this player's profile? -- ")
             if ans.lower() == "no":
                 print("\nNo Change.")
                 return
         else:
             self.build_database()
-            ans = self.input_number("\nWhat is the starting cash?")
+            ans = self.input_number(f"\nWhat is {self.name}'s starting cash? -- ")
             self.bank = ans
 
     def save(self):
-        with open(f"{self.name}_loginsave.pickle","wb") as filew:
+        with open(f"{self.name.lower()}_loginsave.pickle","wb") as filew:
             pickle.dump([self.player_df, self.bank], filew)
+        sleep(.1)
 
     def load(self):
-        with open(f"{self.name}_loginsave.pickle","rb") as filer:
+        with open(f"{self.name.lower()}_loginsave.pickle","rb") as filer:
             self.player_df, self.bank = pickle.load(filer)
 
     def display_stats_graphically(self):
@@ -67,10 +69,5 @@ class PlayerLogin():
                 continue
             else:
                 return user_input
-
-    def record_results(self, results):
-        ''' Results should be list ['games_total', 'games_won', 'games_lost', 'games_push', 'double_total', 'double_won',
-                            'double_lost', 'double_push']
-                            '''
 
 
